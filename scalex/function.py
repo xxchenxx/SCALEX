@@ -246,6 +246,11 @@ def SCALEX(
             if 'celltype' in adata.obs:
                 sil_score = silhouette_score(adata.obsm['X_umap'], adata.obs['celltype'].cat.codes)
                 log.info("silhouette_score: {:.3f}".format(sil_score))
+            
+            if 'cell_type' in adata.obs:
+                sil_score = silhouette_score(adata.obsm['X_umap'], adata.obs['cell_type'].cat.codes)
+                log.info("silhouette_score: {:.3f}".format(sil_score))
+                sc.pl.umap(adata, color='cell_type', save='_cell_type.png', wspace=0.4, ncols=4, show=show)  
 
     if outdir is not None:
         adata.write(os.path.join(outdir, 'adata.h5ad'), compression='gzip')
